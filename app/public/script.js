@@ -124,7 +124,7 @@ function renderCalendar(year,month) {
 function onClick() {
     alert("Day:  " + this.innerText);
 
-    // document.getElementById("schedule").innerText = dataText;
+     document.getElementById("schedule").innerText = dataText;
     // document.getElementById("schedule").innerText = `Schedule for July ${this.innerText}, 2022`;
 }
 
