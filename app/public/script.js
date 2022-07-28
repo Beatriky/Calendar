@@ -43,10 +43,11 @@ function showCalendar(month, year) {
         cell.appendChild(cellText);
         calendarBody.appendChild(cell);
     }
-        document.getElementById("month").innerHTML = months[month];
-        document.getElementById("year").innerHTML = year;
+    document.getElementById("month").innerHTML = months[month];
+    document.getElementById("year").innerHTML = year;
+    eventActivator();
 
-    }
+}
 
 function daysInMonth(month, year) {
     // day 0 here returns the last day of the PREVIOUS month
@@ -68,10 +69,10 @@ function blankDates(count) {
 let nextbtn = document.getElementById("next");
 let prevBtn = document.getElementById("prev");
 
-nextbtn.onclick = function() {
+nextbtn.onclick = function () {
     next();
 };
-prevBtn.onclick = function() {
+prevBtn.onclick = function () {
     previous();
 };
 //calling/initializing calendar
@@ -90,7 +91,7 @@ function previous() {
 }
 
 
-function renderCalendar(year,month) {
+function renderCalendar(year, month) {
     let startOfMonth = new Date(year, month).getDay();
     let numOfDays = 32 - new Date(year, month, 32).getDate();
     let renderNum = 1;
@@ -121,48 +122,30 @@ function renderCalendar(year,month) {
         }
     }
 }
-function onClick() {
-    alert("Day:  " + this.innerText);
 
-     document.getElementById("schedule").innerText = dataText;
-    // document.getElementById("schedule").innerText = `Schedule for July ${this.innerText}, 2022`;
-}
-
-
-const daysVar=document.querySelectorAll('.days');
-daysVar.forEach(item=>
-{
-    item.addEventListener('click',event=>
-    {
-        // console.log(event.target.dataset.date, event.target.innerText, "Weekend: "+event.currentTarget.classList.contains(('weekdays'),));
-        const dataText=event.target.dataset.date;
-        //  document.getElementById("schedule").innerText = dataText;
-        document.getElementById("schedule").innerText = "Schedule for July "+dataText+" 2022";
+function eventActivator() {
+    const daysVar=document.querySelectorAll(".singleDay");
+    console.log(daysVar);
+    daysVar.forEach(item=>{
+        item.addEventListener('click',event=>{
+            let dataText=event.target.dataset.day;
+            let monthText=event.target.dataset.month;
+            let yearText=event.target.dataset.year;
+            document.getElementById('schedule').innerText="Schedule for " + dataText +" "+ months[month] +' '+yearText;
+            console.log(dataText,months[month],yearText);
+        })
     })
-})
-
-
-lettableData = document.querySelectorAll("td");
-
-console.log(tableData);
-
-for(const days of tableData)
-{
-    days.addEventListener("click", onClick);
-    days.addEventListener("click", getinnerText);
 }
 
 
-function getinnerText() {
-    let text = document.getElementById("user1").innerText;
+function onClick() {
 
-    document.getElementById("dataProg").innerText = text;
-
+    alert("Day:  " + this.innerText);
+    document.getElementById("days").innerText = `Schedule for July ${this.innerText}, 2022`;
 }
 
-
-tableData.forEach(function(element) {
-    if(element.textContent === "available") {
-        element.classList.add("available-green");
-    }
-});
+// tableData.forEach(function(element) {
+//     if(element.textContent === "available") {
+//         element.classList.add("available-green");
+//     }
+// });

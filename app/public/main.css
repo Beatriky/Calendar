@@ -114,3 +114,14 @@ body {
         -ms-grid-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
     }
 }
+
+#container {
+    display: flex;
+    justify-content: space-between;
+}
+
+#people-section {
+    justify-content: center;
+    margin-right: 15rem;
+    margin-left: 3rem;
+}
