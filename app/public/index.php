@@ -133,6 +133,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_GET['selectedDate']) && iss
         <?php
         getAppointments();
         ?>
+    <br>
+        <a href='logout.php'>Click here to log out</a>
+
+
     </box>
 </div>
 
@@ -199,6 +203,7 @@ while (($row = $result->fetch()) != null) {
     echo "<option value = '" . json_encode($row) . "'</option>";
 }
 echo "</select>";
+
 
 ?>
 <!--//AJAX-->

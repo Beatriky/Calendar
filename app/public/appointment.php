@@ -22,6 +22,7 @@ function getAppointments()
     while ($row = $stmt->fetch()) {
     //    echo '<li>' . $counter . '" ' . $counter . '">' . $row['firstName'] . " " . $row['lastName'] . '<p>' . $counter . '">' . $row['date']  . '</p></li><br>';
 
-        echo "{$row['lastName']} {$row['firstName']}";
+        echo "{$row['lastName']} {$row['firstName']} {$row['city']}";
+        echo "<br>";
     }
 }
