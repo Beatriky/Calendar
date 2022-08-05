@@ -1,10 +1,17 @@
+
 // getting the actual date
 let today = new Date();
 let dayInt = today.getDate();
 let month = today.getMonth();
+
+let monthPlus=month+1;
+
 let year = today.getFullYear();
 let calendarBody = document.getElementById("days");
-
+//url
+let documentURL = new URL(window.location.href);
+let urlLocation = documentURL.searchParams.get('idLocation');
+let urlDate = documentURL.searchParams.get('selectedDate');
 let months = [
     "January",
     "February",
@@ -19,6 +26,46 @@ let months = [
     "November",
     "December"
 ];
+let selectedDate;
+
+function refillSelectedDay(year, month, day) {
+
+    selectedDate = year + "-" + month + "-" + day;
+}
+console.log(urlDate);
+
+console.log(month);
+
+if (urlLocation !== null) {
+    let parent = document.getElementById('locationID');
+    let children = parent.querySelectorAll('*');
+    children.forEach(child => {
+        if (child.value == urlLocation) {
+            child.setAttribute('selected', 'selected');
+        }
+    })
+}
+
+if (urlDate !== null) {
+    let dateSplit = urlDate.split('-');
+    let dataText = dateSplit[2];
+    let monthText = dateSplit[1];
+    let yearText = dateSplit[0];
+    document.getElementById('schedule').innerText = "Schedule for " + dataText + " " + months[monthText] + ' ' + yearText;
+    dayInt = dataText;
+    month = monthText;
+    year = yearText;
+} else {
+    document.getElementById('schedule').innerText = "Schedule for " + dayInt + " " + months[month] + ' ' + year;
+}
+
+function dateURL() {
+    document.getElementById('selectedDateForm').value = selectedDate;
+    document.getElementById('selectedDateSubmit').click();
+}
+
+
+let modal = document.getElementById('loginID');
 
 function showCalendar(month, year) {
 
@@ -31,6 +78,9 @@ function showCalendar(month, year) {
     for (let day = 1; day <= totalDays; day++) {
         let cell = document.createElement("li");
         let cellText = document.createTextNode(day);
+        if (day == dayInt) {
+            cell.classList.add('active');
+        }
         if (dayInt === day &&
             month === today.getMonth() &&
             year === today.getFullYear()) {
@@ -46,7 +96,6 @@ function showCalendar(month, year) {
     document.getElementById("month").innerHTML = months[month];
     document.getElementById("year").innerHTML = year;
     eventActivator();
-
 }
 
 function daysInMonth(month, year) {
@@ -64,32 +113,52 @@ function blankDates(count) {
     }
 }
 
-
 // next and previous buttons
 let nextbtn = document.getElementById("next");
 let prevBtn = document.getElementById("prev");
 
 nextbtn.onclick = function () {
-    next();
+    document.getElementById('next').addEventListener('click', event => {
+        next();
+        refillSelectedDay(year, month, dayInt);
+        dateURL();
+    });
+
 };
 prevBtn.onclick = function () {
-    previous();
+    document.getElementById('prev').addEventListener('click', event => {
+        previous();
+        refillSelectedDay(year, month, dayInt);
+        dateURL();
+    });
 };
-//calling/initializing calendar
-showCalendar(month, year);
 
 function next() {
-    year = month === 11 ? year + 1 : year;
-    month = (month + 1) % 12;
-    showCalendar(month, year);
+    if (month == 11) {
+        month = 0;
+        year++;
+    } else {
+        month++;
+    }
+    // year = month === 11 ? year+1 : year;
+    // month = (month + 1) % 12;
+    //showCalendar(month, year);
 }
 
 function previous() {
-    year = month === 0 ? year - 1 : year;
-    month = month === 0 ? 11 : month - 1;
-    showCalendar(month, year);
+    if (month == 0) {
+        month = 11;
+        year--;
+    } else {
+        month--;
+    }
+    // year = month === 0 ? year - 1 : year;
+    // month = month === 0 ? 11 : month - 1;
+    //showCalendar(month, year);
 }
 
+//calling/initializing calendar
+showCalendar(month, year);
 
 function renderCalendar(year, month) {
     let startOfMonth = new Date(year, month).getDay();
@@ -104,14 +173,15 @@ function renderCalendar(year, month) {
 
     let tableBody = document.getElementById('table-body');
 
-    for (i = 0; i < 6; i++) {
+    for (let i = 0; i < 6; i++) {
         let row = document.createElement('tr');
-        for (j = 0; j < 7; c++) {
+        let c;
+        for (let j = 0; j < 7; c++) {
             if (i === 0 && c < startOfMonth) {
                 let td = document.createElement('td');
                 td.classList.add('empty');
                 row.append(td);
-            } else if (render > numOfDays) {
+            } else if (renderNum > numOfDays) {
                 break;
             } else {
                 let td = document.createElement('td');
@@ -124,28 +194,37 @@ function renderCalendar(year, month) {
 }
 
 function eventActivator() {
-    const daysVar=document.querySelectorAll(".singleDay");
+    const daysVar = document.querySelectorAll(".singleDay");
     console.log(daysVar);
-    daysVar.forEach(item=>{
-        item.addEventListener('click',event=>{
-            let dataText=event.target.dataset.day;
-            let monthText=event.target.dataset.month;
-            let yearText=event.target.dataset.year;
-            document.getElementById('schedule').innerText="Schedule for " + dataText +" "+ months[month] +' '+yearText;
-            console.log(dataText,months[month],yearText);
+    daysVar.forEach(item => {
+        item.addEventListener('click', event => {
+            document.getElementById('selectedLocationForm').value = document.getElementById('locationID').value;
+            document.getElementById('selectedDateSubmit').click();
+            let dataText = event.target.dataset.day;
+            let monthText = event.target.dataset.month;
+            let yearText = event.target.dataset.year;
+            document.getElementById('schedule').innerText = "Schedule for " + dataText + " " + months[month] + ' ' + yearText;
+            //  selectedDate=dataText+'/'+monthText
+            console.log(dataText, months[month], yearText);
+            refillSelectedDay(yearText, monthText, dataText);
+            dateURL();
         })
     })
 }
 
+function sendAxios() {
+    let params = new URLSearchParams();
+    params.append('parameter', 'value');
+    axios.get('/.php', params).then(response => {
+        console.log(response)
+    });
+}
+const appointmentButton = document.getElementById("appointmentButton");
+appointmentButton.addEventListener("click", appointmentOnClick);
+function appointmentOnClick() {}
+
 
 function onClick() {
-
     alert("Day:  " + this.innerText);
-    document.getElementById("days").innerText = `Schedule for July ${this.innerText}, 2022`;
+    document.getElementById("days").innerText = `Schedule for August ${this.innerText}, 2022`;
 }
-
-// tableData.forEach(function(element) {
-//     if(element.textContent === "available") {
-//         element.classList.add("available-green");
-//     }
-// });
