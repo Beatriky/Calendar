@@ -2,6 +2,10 @@
 require_once("db-connect.php");
 global $pdo;
 
+//environemnet variables p.env auto load struncturea faina fisiere nu mai lungi de 100 linii
+//  router league ,container league, twig, doctrine, validare vlook as vanitron????
+
+
 if (isset($_POST['signup'])) {
     $email = $_POST['email'];
     $firstName = $_POST['firstName'];
@@ -19,19 +23,15 @@ if (isset($_POST['signup'])) {
     }
 
     if ($query->rowCount() == 0) {
-        $query = $pdo->prepare("INSERT INTO users(firstName,lastName,password,email) VALUES (:firstName,:lastName,:password_hash,:email)");//:password_hash
+        $query = $pdo->prepare("INSERT INTO users(firstName,lastName,password,email) VALUES (:firstName,:lastName,:password_hash,:email)");
         $query->bindParam(":firstName", $firstName);
         $query->bindParam(":lastName", $lastName);
         $query->bindParam(":password_hash", $password_hash);
-       // $query->bindParam(":password", $password);
         $query->bindParam(":email", $email);
         $query->execute();
         unset($result);
         $result = $query->fetch();
-        $_SESSION['idUser'] = $result['idUser'];
-        // echo '<p class="success">Your registration was successful!</p>';
         header("Location:/login.php");
-
     }
 }
 ?>

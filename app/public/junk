@@ -1,0 +1,286 @@
+
+//AJAX
+// function showUser(str) {
+//     if (str == "") {
+//         document.getElementById("txtHint").innerHTML = "";
+//         return;
+//     } else {
+//         let xmlhttp = new XMLHttpRequest();
+//         xmlhttp.onreadystatechange = function () {
+//             if (this.readyState == 4 && this.status == 200) {
+//                 document.getElementById("txtHint").innerHTML = this.responseText;
+//             }
+//         };
+//         xmlhttp.open("GET", "index.php?q=" + str, true);
+//         xmlhttp.send();
+//     }
+// }
+// function AjaxCallWithPromise() {
+//     return new Promise(function (resolve, reject) {
+//         const objXMLHttpRequest = new XMLHttpRequest();
+//
+//         objXMLHttpRequest.onreadystatechange = function () {
+//             if (objXMLHttpRequest.readyState === 4) {
+//                 if (objXMLHttpRequest.status == 200) {
+//                     resolve(objXMLHttpRequest.responseText);
+//                 } else {
+//                     reject('Error Code: ' +  objXMLHttpRequest.status + ' Error Message: ' + objXMLHttpRequest.statusText);
+//                 }
+//             }
+//         }
+//         objXMLHttpRequest.open('GET', 'index.php');
+//         objXMLHttpRequest.send();
+//     });
+// }
+//
+// AjaxCallWithPromise().then(
+//     data => { console.log('Success Response: ' + data) },
+//     error => { console.log(error) }
+// );
+// //https://code.tutsplus.com/tutorials/how-to-use-ajax-in-php-and-jquery--cms-32494
+// $.ajax({
+//     type: "POST",
+//     url: 'login.php',
+//     data: $(this).serialize()
+// }).then(
+//     // resolve/success callback
+//     function(response)
+//     {
+//         var jsonData = JSON.parse(response);
+//
+//         // user is logged in successfully in the back-end
+//         // let's redirect
+//         if (jsonData.success == "1")
+//         {
+//             location.href = 'my_profile.php';
+//         }
+//         else
+//         {
+//             alert('Invalid Credentials!');
+//         }
+//     },
+//     // reject/failure callback
+//     function()
+//     {
+//         alert('There was some error!');
+//     }
+// );
+//AXIOS imi strica calendarul
+
+// const axios = require('axios');
+// let params = new URLSearchParams();
+// params.append("date",today)
+// console.log(params);
+//
+// function sendAxios() {
+//     let params = new URLSearchParams();
+//     params.append('parameter', 'value');
+//     axios.post('/index.php', params).then(response => {
+//         console.log(response)
+//     });
+// }
+
+-------------------------------------
+
+login
+
+
+
+
+<!---->
+<!---->
+<!--//if (isset($_POST['username']) && $_POST['username'] && isset($_POST['password']) && $_POST['password']) {-->
+<!--//    // do user authentication as per your requirements-->
+<!--//    // based on successful authentication-->
+<!--//    echo json_encode(array('success' => 1));-->
+<!--//} else {-->
+<!--//    echo json_encode(array('success' => 0));-->
+<!--//}-->
+<!---->
+<!--if (isset($_POST['submit'])) {-->
+<!--    $firstName = $_POST['firstName'];-->
+<!--    $lastName = $_POST['lastName'];-->
+<!--    $email = $_POST['email'];-->
+<!--    $password = $_POST['password'];-->
+<!---->
+<!--    $inst = "INSERT INTO users(firstName, lastName ,email,password)-->
+<!--VALUES (:firstName,:lastName,:email,:password)";-->
+<!--    $queryRun = $pdo->prepare($inst);-->
+<!---->
+<!---->
+<!--//    $dataApointment = [-->
+<!--//        ':idUser' => $_SESSION['id'],-->
+<!--//        ':password' => $password,  ];-->
+<!--//-->
+
+<!--    $data = [-->
+<!--        ':firstName' => $firstName,-->
+<!--        'lastName' => $lastName,-->
+<!--        ':email' => $email,-->
+<!--        ':password' => $password,-->
+<!--    ];-->
+<!--    $queryExecute = $queryRun->execute($data);-->
+<!--    if ($queryExecute) {-->
+<!--        {-->
+<!--            echo "Inserted Successfully";-->
+<!--            exit(0);-->
+<!--        }-->
+<!--    } else {-->
+<!--        echo "Not Inserted";-->
+<!--        exit(0);-->
+<!--    }-->
+<!---->
+<!--}-->
+<!---->
+<!--if (isset($_POST['email']) && isset($_POST['psw'])) {-->
+<!--    $mail = $_POST['email'];-->
+<!--    $psw = $_POST['psw'];-->
+<!--    //$userName = $_POST['userName'];-->
+<!--    $sql = "select idUser, email from users where email='" . $mail . "'AND password='" . $psw . "'";-->
+<!--    $result1 = $pdo->query($sql);-->
+<!--    $result1->setFetchMode(PDO::FETCH_ASSOC);-->
+<!--    $row = $result1->fetch();-->
+<!--    if ($row != null) {-->
+<!--        //  echo " You Have Successfully Logged in ";-->
+<!--        $_SESSION['id'] = $row['id'];-->
+<!--        $_SESSION['email'] = $row['email'];-->
+<!--        exit();-->
+<!--    } else {-->
+<!--        echo " You Have Entered Incorrect Password";-->
+<!--        exit();-->
+<!--    }-->
+<!--}-->
+<!---->
+
+
+.........................
+
+
+//unset($result);
+//
+//$queryLOC = "SELECT * FROM location ";
+//
+//$result = $pdo->query($queryLOC);
+//echo "<select name = 'Location'>";
+//
+//while (($row = $result->fetch()) != null) {
+//    echo "<option value = '" . json_encode($row) . "'</option>";
+//}
+//echo "</select>";
+
+
+?>
+<!--//AJAX-->
+<!---->
+<!--//$q = intval($_GET['q']);-->
+<!--//$q=1;-->
+<!--//-->
+<!--//$sql="SELECT * FROM users WHERE id = '".$q."'";-->
+<!--//$result = $pdo->query($query);-->
+<!--//echo "<table>-->
+<!--//<tr>-->
+<!--//<th>Firstname</th>-->
+<!--//<th>Lastname</th>-->
+<!--//</tr>";-->
+<!--//-->
+<!--//while($row = ($result)->fetch_row()) {-->
+<!--//    echo "<tr>";-->
+<!--//    echo "<td>" . $row['FirstName'] . "</td>";-->
+<!--//    echo "<td>" . $row['LastName'] . "</td>";-->
+<!--//    echo "</tr>";-->
+<!--//}-->
+<!--//echo "</table>";-->
+<!---->
+<!---->
+<!--//$data = array();-->
+<!--//while ($row = fetch($result))-->
+<!--//{-->
+<!--//    array_push($data, $row);-->
+<!--//}-->
+<!--//echo json_encode($data);-->
+<!--//exit();-->
+<!---->
+<!--//login to session-->
+<!---->
+<!--//session_start();-->
+<!---->
+<!--//if($_SERVER["REQUEST_METHOD"] == "POST") {-->
+<!--// username and password sent from form-->
+<!---->
+<!--//    $email = mysqli_real_escape_string($pdo,$_POST['email']);-->
+<!--//    $password = mysqli_real_escape_string($pdo,$_POST['password']);-->
+<!--//-->
+<!--//    $sql = "SELECT id FROM users WHERE email = '$email' and password = '$password'";-->
+<!--//    $result = mysqli_query($pdo,$sql);-->
+<!--//    $row = mysqli_fetch_array($result,MYSQLI_ASSOC);-->
+<!--//    $active = $row['active'];-->
+<!--//-->
+<!--//    $count = mysqli_num_rows($result);-->
+<!--//-->
+<!--//    if($count == 1) {-->
+<!--//       // session_register("email");-->
+<!--//        $_SESSION['login_user'] = $email;-->
+<!--//-->
+<!--//        header("location: index.php");-->
+<!--//    }else {-->
+<!--//        $error = "Your Login Name or Password is invalid";-->
+<!--//    }-->
+<!---->
+<!--//cookie based-->
+<!--//if (isset($_POST['email']) && isset($_POST['password'])) {-->
+<!--//-->
+<!--//    function validate($data){-->
+<!--//-->
+<!--//        $data = trim($data);-->
+<!--//-->
+<!--//        $data = stripslashes($data);-->
+<!--//-->
+<!--//        $data = htmlspecialchars($data);-->
+<!--//-->
+<!--//        return $data;-->
+<!--//-->
+<!--//    }-->
+<!--//    $email= validate($_POST['email']);-->
+<!--//-->
+<!--//    $password = validate($_POST['password']);-->
+<!--//}-->
+<!--//-->
+<!--//-->
+<!--//-->
+<!--//if (empty($email)) {-->
+<!--//-->
+<!--//    header("Location: index.php?error=User Name is required");-->
+<!--//-->
+<!--//    exit();-->
+<!--//-->
+<!--//}else if(empty($password)){-->
+<!--//-->
+<!--//    header("Location: index.php?error=Password is required");-->
+<!--//-->
+<!--//    exit();-->
+<!--//-->
+<!--//}else {-->
+<!--//-->
+<!--//    $sql = "SELECT * FROM users WHERE user_name='$email' AND password='$password'";-->
+<!--//-->
+<!--//    $result = mysqli_query($pdo, $sql);-->
+<!--//}-->
+<!--//$fn =$_GET('firstName');-->
+<!--//$query = "SELECT *  FROM users where firstName=.$fn.";-->
+<!---->
+<!--//-->
+<!--//foreach($pdo->query($query)as $user)-->
+<!--//{-->
+<!--//    echo '<pre>';-->
+<!--//    var_dump($user);-->
+<!--//    echo '</pre>';-->
+<!--//}-->
+
+<!--//$sth =$pdo->prepare("SELECT firstName, lastName  FROM users");-->
+<!--//$sth->execute();-->
+<!--//-->
+<!--//-->
+<!--//print("\n Return next row as an array indexed by column name\n");-->
+<!--//$result = $sth->fetch(PDO::FETCH_ASSOC);-->
+<!--//print_r($result);-->
+<!--//print("\n");-->

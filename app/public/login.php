@@ -1,47 +1,35 @@
 <?php
+require_once("db-connect.php");
 session_start();
 ob_start();
 
-$pdo = new PDO('mysql:dbname=tutorial;host=mysql', 'tutorial', 'secret', [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
-
 global $pdo;
-
 if (isset($_POST['login'])) {
     $email = $_POST['email'];
     $password = $_POST['password'];
-    //var_dump($password);die();
 
     $query = $pdo->prepare("SELECT * FROM users WHERE email= :email");
     $query->bindParam(":email", $email);
-   // $query->bindParam(":password", $password);
     $query->execute();
     $result = $query->fetch(PDO::FETCH_ASSOC);
 
-    // var_dump(password_verify($_POST['password'],$password));   die();
 
     if (!$result) {
         echo '<p class="error">Email password combination is wrong!</p>';
     } else {
-        if (password_verify($password, $result['password'])) // if ($password==$result['password']) //
-        {
+        if (password_verify($password, $result['password'])) {
             $_SESSION['idUser'] = $result['idUser'];
             echo '<p class="success">Congratulations, you are logged in!</p>';
             header("Location: index.php");
         } else {
-            echo '<p class="error">Email combination is wrong!</p>';
+            echo '<p class="error">Email is wrong!</p>';
         }
     }
 }
-if (isset($_POST['signup'])) {
 
+if (isset($_POST['signup'])) {
     header("location:/registration.php");
 }
-
-
-//            array(
-//                    'email'=>$_POST["email"];
-//                    'password'=>$_POST["password"];
-//            )
 ?>
 
 
@@ -75,5 +63,4 @@ if (isset($_POST['signup'])) {
     <button type="submit" name="signup" value="signup">Sign Up</button>
 </form>
 </body>
-
 </html>

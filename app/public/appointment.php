@@ -13,15 +13,15 @@ function getAppointments()
                     INNER JOIN location ON appointment.idLocation = location.idLocation 
                     WHERE cast(appointment.date as date) = :date AND appointment.idLocation = :idLocation
                     ORDER BY appointment.date ASC");
+
     $stmt->bindParam(":date", $_GET["selectedDate"]);
     $stmt->bindParam(":idLocation", $_GET["idLocation"]);
+
     $stmt->execute();
 
     $stmt->setFetchMode(PDO::FETCH_ASSOC);
 
     while ($row = $stmt->fetch()) {
-    //    echo '<li>' . $counter . '" ' . $counter . '">' . $row['firstName'] . " " . $row['lastName'] . '<p>' . $counter . '">' . $row['date']  . '</p></li><br>';
-
         echo "{$row['lastName']} {$row['firstName']} {$row['city']}";
         echo "<br>";
     }

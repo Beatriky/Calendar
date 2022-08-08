@@ -1,10 +1,9 @@
-
 // getting the actual date
 let today = new Date();
 let dayInt = today.getDate();
 let month = today.getMonth();
 
-let monthPlus=month+1;
+let monthPlus = month + 1;
 
 let year = today.getFullYear();
 let calendarBody = document.getElementById("days");
@@ -32,6 +31,7 @@ function refillSelectedDay(year, month, day) {
 
     selectedDate = year + "-" + month + "-" + day;
 }
+
 console.log(urlDate);
 
 console.log(month);
@@ -219,9 +219,12 @@ function sendAxios() {
         console.log(response)
     });
 }
+
 const appointmentButton = document.getElementById("appointmentButton");
 appointmentButton.addEventListener("click", appointmentOnClick);
-function appointmentOnClick() {}
+
+function appointmentOnClick() {
+}
 
 
 function onClick() {
